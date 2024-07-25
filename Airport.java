@@ -1,3 +1,8 @@
+
+/**
+ * Represent airports with their 3 letter code, the name of the airport, the latitude, and longitude.
+ */
+
 public class Airport {
   String code;
   String name;

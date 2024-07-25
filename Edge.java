@@ -1,3 +1,7 @@
+/**
+ * Designates edges with a destination and a distance (weight)
+ */
+
 public class Edge {
   String destination;
   int weight;
