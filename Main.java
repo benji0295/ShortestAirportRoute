@@ -1,3 +1,5 @@
+
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -9,34 +11,37 @@ public class Main {
         String airportFilePath = "/Users/bensmith/IdeaProjects/CS608/ShortestAirportRoute/airport.csv";
         String routeFilePath = "/Users/bensmith/IdeaProjects/CS608/ShortestAirportRoute/route.csv";
 
-        Map<String, String> airports = AirportParser.parseAirports(airportFilePath);
-        Graph graph = new Graph();
+        try {
+          Map<String, Airport> airports = AirportParser.parseAirports(airportFilePath);
+          Graph graph = new Graph();
 
-        // Load routes into the graph
-        RouteParser.parseRoutes(routeFilePath, graph);
+          RouteParser.parseRoutes(routeFilePath, graph, airports);
 
-        Scanner scanner = new Scanner(System.in);
+          Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter departure airport (3-letter code): ");
-        String departure = scanner.nextLine().trim().toUpperCase();
+          System.out.print("Enter departure airport (3-letter code): ");
+          String departure = scanner.nextLine().trim().toUpperCase();
 
-        System.out.print("Enter arrival airport (3-letter code): ");
-        String arrival = scanner.nextLine().trim().toUpperCase();
+          System.out.print("Enter arrival airport (3-letter code): ");
+          String arrival = scanner.nextLine().trim().toUpperCase();
 
-        if (!airports.containsKey(departure) || !airports.containsKey(arrival)) {
-            System.out.println("Invalid airport code.");
-            return;
-        }
+          if (!airports.containsKey(departure) || !airports.containsKey(arrival)) {
+              System.out.println("Invalid airport code.");
+              return;
+          }
 
-        Map<String, Integer> distances = Dijkstra.dijkstra(graph, departure);
-        List<String> path = findPath(graph, departure, arrival, distances);
+          Map<String, Integer> distances = Dijkstra.dijkstra(graph, departure);
+          List<String> path = findPath(graph, departure, arrival, distances);
 
-        if (path.isEmpty()) {
-            System.out.println("No route found.");
-        } else {
-            System.out.println("Shortest route: " + path);
-            int totalDistance = distances.get(arrival);
-            System.out.println("Total distance: " + totalDistance + " km");
+          if (path.isEmpty()) {
+              System.out.println("No route found.");
+          } else {
+              System.out.println("Shortest route: " + path);
+              int totalDistance = distances.get(arrival);
+              System.out.println("Total distance: " + totalDistance + " km");
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
     }
 

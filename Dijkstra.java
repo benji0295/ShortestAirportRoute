@@ -14,6 +14,7 @@ public class Dijkstra {
 
     for (int i = 0; i < graph.getAdjList().size(); i++) {
       String u = findMinDistance(distances, visited);
+      if (u == null) break;
       visited.put(u, true);
 
       for (Edge edge : graph.getEdges(u)) {

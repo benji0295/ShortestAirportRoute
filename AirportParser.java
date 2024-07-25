@@ -5,16 +5,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AirportParser {
-  public static Map<String, String> parseAirports(String filePath) {
-    Map<String, String> airports = new HashMap<>();
+  public static Map<String, Airport> parseAirports(String filePath) {
+    Map<String, Airport> airports = new HashMap<>();
 
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
       String line;
+      boolean isFirstLine = true;
       while ((line = bufferedReader.readLine()) != null) {
+        if (isFirstLine) {
+          isFirstLine = false;
+          continue;
+        }
         String[] parts = line.split(",");
+        if (parts.length != 4) continue;
+
         String code = parts[0].trim();
         String name = parts[1].trim();
-        airports.put(code, name);
+        double latitude = Double.parseDouble(parts[2].trim());
+        double longitude = Double.parseDouble(parts[3].trim());
+
+        airports.put(code, new Airport(code, name, latitude, longitude));
       }
     } catch (IOException e) {
       e.printStackTrace();
