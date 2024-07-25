@@ -16,7 +16,7 @@ public class Graph {
   }
 
   public List<Edge> getEdges(String node) {
-    return adjList.get(node);
+    return adjList.getOrDefault(node, new LinkedList<>());
   }
 
   public Map<String, List<Edge>> getAdjList() {
