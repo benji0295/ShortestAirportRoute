@@ -24,7 +24,7 @@ public class Dijkstra {
 
       // Mark the vertex as visited
       visited.put(u, true);
-      
+
       // Uodate the distance for each adjacent vertex
       for (Edge edge : graph.getEdges(u)) {
         String v = edge.destination;
