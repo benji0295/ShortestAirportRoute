@@ -16,7 +16,7 @@ public class RouteParser {
 
       while ((line = bufferedReader.readLine()) != null) {
         if (isFirstLine) {
-          isFirstLine = true; // Skip header row
+          isFirstLine = false; // Skip header row
           continue;
         }
         String[] parts = line.split(",");
@@ -53,7 +53,7 @@ public class RouteParser {
     final int Radius = 6371; // Radius of the earth in km
 
     double latDistance = Math.toRadians(lat2 - lat1);
-    double lonDistance = Math.toRadians(lon2 = lon1);
+    double lonDistance = Math.toRadians(lon2 - lon1);
     double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
               * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
     double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));

@@ -4,20 +4,30 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.nio.file.Paths;
+import java.nio.file.Path;
 
 public class Main {
 
     public static void main(String[] args) {
-        String airportFilePath = "/Users/bensmith/IdeaProjects/CS608/ShortestAirportRoute/airport.csv";
-        String routeFilePath = "/Users/bensmith/IdeaProjects/CS608/ShortestAirportRoute/route.csv";
+
+        // Get the current working directory
+        String baseDir = System.getProperty("user.dir");
+
+        // Construct the full paths to the CSV files
+        Path airportFilePath = Paths.get(baseDir,  "airport.csv");
+        Path routeFilePath = Paths.get(baseDir,  "route.csv");
+
+        System.out.println("Airport File Path: " + airportFilePath.toString());
+        System.out.println("Route File Path: " + routeFilePath.toString());
 
         try {
           // Parse the airport data
-          Map<String, Airport> airports = AirportParser.parseAirports(airportFilePath);
+          Map<String, Airport> airports = AirportParser.parseAirports(airportFilePath.toString());
           Graph graph = new Graph();
 
           // Parse the route data and load it to the graph
-          RouteParser.parseRoutes(routeFilePath, graph, airports);
+          RouteParser.parseRoutes(routeFilePath.toString(), graph, airports);
 
           Scanner scanner = new Scanner(System.in);
 
